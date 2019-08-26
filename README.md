@@ -2,7 +2,8 @@
 
 ## 介紹
 
-網站連結：[GitHub Page](https://lidemy.github.io/lazy-hackathon/)
+原始網站連結：[GitHub Page](https://lidemy.github.io/lazy-hackathon/)
+作答網站連結：[GitHub Page](https://shuanshuan030913.github.io/lazy-hackathon/)
 
 ![visual](https://i.imgur.com/sb1m6XB.png)
 
