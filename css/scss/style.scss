@@ -1,3 +1,6 @@
+
+@import "myicon";
+
 /* ------- Variable ------- */
 $color_main: #FAD312;
 $color_grey_light: #999;
@@ -31,7 +34,7 @@ $breakpoints: ("phone": 375px, "phone-l": 480px, "tablet-s": 640px, "tablet": 76
 
 /* pseudo */
 @mixin pseudo($display: block, $content: '') {
-    content: '';
+    content: $content;
     display: $display;
 }
 
@@ -132,6 +135,7 @@ $breakpoints: ("phone": 375px, "phone-l": 480px, "tablet-s": 640px, "tablet": 76
     font-size: 20px;
     position: relative;
     top: 2px;
+    margin-right: 4px;
   }
   .schedule & {
     i {
@@ -765,12 +769,12 @@ ul {
     }
 
     &::after {
-        @include pseudo();
+        font-family: 'icomoon';
+        @include pseudo($content: '\e90b');
         @include size(20px);
-        @include icon(#fff,
-            'add-circular-outlined-button.png',
-            block);
         @include absolute($left: calc(50% - 10px), $bottom: calc(50% - 10px));
+        font-size: 20px;
+        color: #fff;
         opacity: 0;
         z-index: 1;
     }
