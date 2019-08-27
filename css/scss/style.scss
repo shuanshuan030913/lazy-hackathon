@@ -55,6 +55,7 @@ $breakpoints: ("phone": 375px, "phone-l": 480px, "tablet-s": 640px, "tablet": 76
 
 
 /* icon */
+
 @mixin icon ($icon-color, $icon-url, $icon-type: inline-block) {
     display: $icon-type;
     background-color: $icon-color;
@@ -100,68 +101,62 @@ $breakpoints: ("phone": 375px, "phone-l": 480px, "tablet-s": 640px, "tablet": 76
 
 /* title */
 %title {
-    display: inline-block;
-    margin: 0 auto 60px auto;
-    border-bottom: 4px solid $color_main;
-    padding-bottom: 5px;
+  display: inline-block;
+  margin: 0 auto 60px auto;
+  border-bottom: 4px solid $color_main;
+  padding-bottom: 5px;
+
+  span {
+    color: $color_grey_dark;
+    font-size: 22px;
+    font-weight: 500;
+
+    &::before {
+      @include size(5px);
+    }
+  }
+
+  &.dark-mode {
+    border-color: #626262;
 
     span {
-        color: $color_grey_dark;
-        font-size: 22px;
-        font-weight: 500;
-
-        &::before {
-            @include pseudo();
-            @include size(20px);
-            @include icon(#000,
-                '');
-            @include relative($right: 5px, $top: 3px);
-        }
+        color: $color_main;
     }
-
-    &.dark-mode {
-        border-color: #626262;
-
-        span {
-            color: $color_main;
-        }
-    }
+  }
 }
 
 
 /* title - 各區塊標題 */
+.section__title {
+  i {
+    font-size: 20px;
+    position: relative;
+    top: 2px;
+  }
+  .schedule & {
+    i {
+      color: #000;
+    }
+  }
+  .judge & {
+    i {
+      color: $color_main;
+    }
+  }
+  .team & {
+    i {
+    font-size: 22px;
+    }
+  }
+}
 .section__title span::before {
-    .description & {
-        mask-image: url('./../image/title_description.png');
-    }
-
-    .team & {
-        width: 22px;
-        height: 22px;
-        mask-image: url('./../image/title_team.png');
-    }
-
-    .schedule & {
-        mask-image: url('./../image/title_schedule.png');
-    }
-
-    .history & {
-        width: 25px;
-        height: 25px;
-        top: 5px;
-        mask-image: url('./../image/title_history.png');
-        background-color: $color_main;
-    }
-
-    .judge & {
-        color: #fff;
-        mask-image: url('./../image/title_judge.png');
-        background-color: $color_main;
-    }
-
-    .subscribe & {
-        mask-image: url('./../image/title_subscribe.png');
-    }
+  .history & {
+    @include pseudo();
+    @include icon(#000, 'title_history.png');
+    @include relative($right: 5px, $top: 5px);
+    @include size(25px);
+    background-color: $color_main;
+  }
 }
 
 
@@ -238,8 +233,7 @@ ul {
     }
 
     .nav__logo {
-        @include size(160px,
-            45px);
+        @include size(160px, 45px);
         background: url('./../image/logo_nav.png') no-repeat center center;
         background-size: 100% auto;
     }
@@ -275,8 +269,7 @@ ul {
 
         &::after {
             @include pseudo();
-            @include size(25px,
-                2px);
+            @include size(25px, 2px);
             @include absolute($left: 6px, $bottom: 0);
             transform-origin: 0 50%;
             transition: transform .3s cubic-bezier(.785, .135, .15, .86), opacity .3s cubic-bezier(.785, .135, .15, .86);
@@ -315,7 +308,7 @@ ul {
         width: 80%;
         height: 70vh;
         margin: 0 auto;
-        background: url('./../image/bg_header.png') no-repeat center center;
+        background: url('./../image/bg_header.jpg') no-repeat center center;
         background-size: 80% auto;
     }
 }
@@ -467,12 +460,10 @@ ul {
     position: relative;
     margin-bottom: 7px;
 
-    &:before {
-        @include pseudo($display: inline-block);
-        @include size(15px);
-        @include icon(#000,
-            'add-circular-outlined-button.png');
-        @include absolute($right: 10px);
+    i {
+      font-size: 15px;
+      @include size(15px);
+      @include absolute($right: 10px);
     }
 
     .team__name {
@@ -614,7 +605,7 @@ ul {
 /* ------- 歷屆成績 ------- */
 .history {
     text-align: center;
-    background: #000 url('./../image/bg_history.png') repeat-y center center;
+    background: #000 url('./../image/bg_history.jpg') repeat-y center center;
     background-attachment: fixed;
     background-size: $width-l auto;
 
@@ -631,7 +622,7 @@ ul {
 /* 歷屆成績 - RWD */
 .history {
     @include mq('tablet-s') {
-        background-image: url('./../image/bg_history-mobile.png');
+        background-image: url('./../image/bg_history-mobile.jpg');
         background-size: cover;
         background-attachment: initial;
     }
@@ -704,26 +695,8 @@ ul {
 .comments__icon {
     @include absolute($left: 0, $top: 0);
     @include size(70px);
-    @include icon($color_main,
-        '');
-
-    &.icon-strength {
-        mask-image: url('./../image/icon-strength.png');
-    }
-
-    &.icon-buddha {
-        width: 80px;
-        height: 80px;
-        mask-image: url('./../image/icon-buddha.png');
-    }
-
-    &.icon-sleep {
-        mask-image: url('./../image/icon-sleep.png');
-    }
-
-    &.icon-bao {
-        mask-image: url('./../image/icon-bao.png');
-    }
+    color: $color_main;
+    font-size: 70px;
 }
 
 
@@ -965,7 +938,7 @@ ul {
 
 /* 報名資訊 ------- */
 .subscribe {
-    background: #fff url('./../image/bg_footer.png') no-repeat center center;
+    background: #fff url('./../image/bg_footer.jpg') no-repeat center center;
     background-size: auto 380px;
     border-bottom: 3px solid $color_main;
 
@@ -1051,28 +1024,13 @@ ul {
 
     .footer__social-icon {
         @include size(30px);
-        @include icon(#bbb, '');
         margin-left: 5px;
         cursor: pointer;
+        font-size: 30px;
+        color: #ccc;
 
         &:hover {
-            background: #eee;
-        }
-
-        &.icon-fb {
-            mask-image: url('./../image/icon-fb.png');
-        }
-
-        &.icon-twitter {
-            mask-image: url('./../image/icon-twitter.png');
-        }
-
-        &.icon-ig {
-            mask-image: url('./../image/icon-ig.png');
-        }
-
-        &.icon-g-plus {
-            mask-image: url('./../image/icon-g-plus.png');
+            color: #fff;
         }
     }
 }
