@@ -2,12 +2,26 @@
 const {
   src, dest, watch, parallel,
 } = require('gulp');
+
 const sass = require('gulp-dart-sass');
 const autoprefixer = require('gulp-autoprefixer');
 const minifyCSS = require('gulp-csso');
+
 const babel = require('gulp-babel');
 const uglify = require('gulp-uglify');
 const rename = require('gulp-rename');
+
+function icon() {
+  return src('./css/myicon.css')
+    .pipe(autoprefixer({
+      cascade: false,
+    }))
+    .pipe(minifyCSS())
+    .pipe(rename((path) => {
+      path.basename += '.min';
+    }))
+    .pipe(dest('./build'));
+}
 
 function css() {
   return src('./css/scss/style.scss')
@@ -35,7 +49,7 @@ function js() {
 }
 
 function isWatch() {
-  watch('./css/*.scss', css);
+  watch('./css/scss/*.scss', css);
   watch('./js/*.js', js);
 }
-exports.default = parallel(css, js, isWatch);
+exports.default = parallel(icon, css, js, isWatch);
