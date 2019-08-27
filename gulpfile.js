@@ -11,25 +11,17 @@ const babel = require('gulp-babel');
 const uglify = require('gulp-uglify');
 const rename = require('gulp-rename');
 
-function icon() {
-  return src('./css/myicon.css')
-    .pipe(autoprefixer({
-      cascade: false,
-    }))
-    .pipe(minifyCSS())
-    .pipe(rename((path) => {
-      path.basename += '.min';
-    }))
-    .pipe(dest('./build'));
-}
+const concat = require('gulp-concat');
+const htmlmin = require('gulp-htmlmin');
 
 function css() {
-  return src('./css/scss/style.scss')
+  return src('./css/scss/**/*.scss')
     .pipe(sass().on('error', sass.logError))
     .pipe(autoprefixer({
       cascade: false,
     }))
     .pipe(minifyCSS())
+    .pipe(concat('all.css'))
     .pipe(rename((path) => {
       path.basename += '.min';
     }))
@@ -37,19 +29,29 @@ function css() {
 }
 
 function js() {
-  return src('./js/index.js')
+  return src('./js/*.js')
     .pipe(babel({
       presets: ['@babel/env'],
     }))
     .pipe(uglify())
+    .pipe(concat('all.js'))
     .pipe(rename((path) => {
       path.basename += '.min';
     }))
     .pipe(dest('./build'));
 }
 
+function html() {
+  return src('./view/*.html')
+    .pipe(htmlmin({
+      collapseWhitespace: true,
+    }))
+    .pipe(dest('./'));
+}
+
 function isWatch() {
+  watch('./view/*.html', html);
   watch('./css/scss/*.scss', css);
   watch('./js/*.js', js);
 }
-exports.default = parallel(icon, css, js, isWatch);
+exports.default = parallel(css, js, html, isWatch);
